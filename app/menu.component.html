@@ -1,0 +1,40 @@
+<div id="topHeader" class="row">
+  <div class="col-xs-4 col-md-4 vCenter"></div>
+  <div class="col-xs-4 col-md-4 vCenter text-center"><button id="btn_open" (click)="toggleMenu('in')">OPEN PANEL</button></div>
+  <div class="col-xs-64 col-md-4 vCenter"></div>
+</div>
+<div class="row Content">
+  <div id="rowC" class="col-xs-4 col-md-4" [@slideInOut]="menuState">
+    <div class="row">
+      <div class="col-xs-10 col-md-10 vCenter"><h2>weather in country capitals</h2></div>
+      <div id="closeID" class="col-xs-2 col-md-2">
+        <button  (click)="toggleMenu('out')">
+        <img src="close_button.png" height="35px" width="35px"/>
+      </button>
+      </div>
+      </div>
+    <div class="row">
+      <div class="col-xs-12 col-md-12">
+        <select id="select_continent" [(ngModel)]="selectedContinent" (ngModelChange)="onChange($event)">
+          <option *ngFor="let continent of continents" [ngValue]="continent.name" >{{continent.name}}</option>
+        </select>
+
+        <input [(ngModel)]="searchBox" type="text" id="inDisplay" class="form-control" placeholder="Search country, city or weather">
+      </div>
+      <div class="col-xs-12 col-md-12">
+        <div>
+        <div *ngIf="data != null && data != {}" class="table-responsive">
+          <table class="table table-hover">
+            <tr *ngFor="let d of data | orderBy:country | filter:searchBox">
+              <td>{{d.country}}</td>
+              <td>{{d.capital}}</td>
+              <td>{{d.weather}}</td>
+            </tr>
+          </table>
+      </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+  </div>
